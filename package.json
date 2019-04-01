@@ -5,7 +5,12 @@
   "private": true,
   "author": "Suguru Motegi <suguru.motegi@gmail.com>",
   "license": "MIT",
+  "peerDependencies": {
+    "serverless-plugin-warmup": "*",
+    "serverless-plugin-typescript": "*"
+  },
   "devDependencies": {
+    "@types/node": "^11.12.2",
     "husky": "^1.3.1",
     "lint-staged": "^8.1.5",
     "prettier": "^1.16.4",
