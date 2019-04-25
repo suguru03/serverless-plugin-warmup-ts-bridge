@@ -7,7 +7,7 @@ The library resolves [a warmup and typescript issue](https://github.com/prisma/s
 ```sh
 $ npm install -D serverless-plugin-warmup-ts-bridge
 // or
-$ yarn add  -D serverless-plugin-warmup-ts-bridge
+$ yarn add -D serverless-plugin-warmup-ts-bridge
 ```
 
 

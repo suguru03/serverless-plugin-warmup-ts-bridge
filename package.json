@@ -6,8 +6,8 @@
   "author": "Suguru Motegi <suguru.motegi@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "serverless-plugin-warmup": "*",
-    "serverless-plugin-typescript": "*"
+    "serverless-plugin-typescript": "*",
+    "serverless-plugin-warmup": "*"
   },
   "devDependencies": {
     "@types/node": "^11.12.2",

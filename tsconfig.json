@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "lib": ["es2017"],
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "target": "es6",
+    "outDir": "dist",
+    "module": "commonjs",
+    "moduleResolution": "node"
+  }
+}
