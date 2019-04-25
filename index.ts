@@ -5,8 +5,11 @@ const modulePath = path.join(cwd, 'node_modules');
 
 const fs = require(path.join(modulePath, 'fs-extra'));
 
-const warmupDir = '_warmup';
-const buildFolder = '.build';
+const defaultDir = '_warmup';
+const opts = {
+  warmupDir: defaultDir,
+  buildFolder: '.build'
+};
 
 modify(
   'serverless-plugin-typescript',
@@ -26,9 +29,9 @@ modify(
       }
       beforeArtifacts = async () => {
         await this.compileTs();
-        const target = path.resolve(path.join(buildFolder, warmupDir));
+        const target = path.resolve(path.join(opts.buildFolder, opts.warmupDir));
         if (!fs.existsSync(target)) {
-          fs.symlinkSync(path.resolve(warmupDir), target);
+          fs.symlinkSync(path.resolve(opts.warmupDir), target);
         }
       };
       afterArtifacts = async () => {
@@ -36,11 +39,16 @@ modify(
         // Restore service path
         this.serverless.config.servicePath = this.originalServicePath;
       };
-      finalize = async () => fs.removeSync(path.join(this.originalServicePath, buildFolder));
+      finalize = async () => fs.removeSync(path.join(this.originalServicePath, opts.buildFolder));
     }
 );
 
-export = class {};
+export = class {
+  constructor(serverless) {
+    const config = (serverless.service.custom && serverless.service.custom.warmup) || {};
+    opts.warmupDir = config.folderName || defaultDir;
+  }
+};
 
 function modify(dependency: string, handler) {
   const filepath = path.join(modulePath, dependency);
