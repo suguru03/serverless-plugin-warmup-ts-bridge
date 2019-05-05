@@ -29,9 +29,9 @@ modify(
       }
       beforeArtifacts = async () => {
         await this.compileTs();
-        const target = path.resolve(path.join(opts.buildFolder, opts.warmupDir));
+        const target = path.resolve(cwd, path.join(opts.buildFolder, opts.warmupDir));
         if (!fs.existsSync(target)) {
-          fs.symlinkSync(path.resolve(opts.warmupDir), target);
+          fs.symlinkSync(path.resolve(cwd, opts.warmupDir), target);
         }
       };
       afterArtifacts = async () => {
