@@ -5,6 +5,9 @@
   "private": true,
   "author": "Suguru Motegi <suguru.motegi@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "tsp build"
+  },
   "peerDependencies": {
     "serverless-plugin-typescript": "*",
     "serverless-plugin-warmup": "*"
