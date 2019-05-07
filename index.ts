@@ -1,8 +1,6 @@
 import * as path from 'path';
 
-const cwd = process.cwd();
-const modulePath = path.join(cwd, 'node_modules');
-
+const modulePath = path.join(__dirname, '..');
 const fs = require(path.join(modulePath, 'fs-extra'));
 
 const defaultDir = '_warmup';
@@ -25,13 +23,13 @@ modify(
         };
       }
       get rootFileNames() {
-        return super.rootFileNames.filter(filepath => fs.existsSync(path.resolve(cwd, filepath)));
+        return super.rootFileNames.filter(filepath => fs.existsSync(path.resolve(this.originalServicePath, filepath)));
       }
       beforeArtifacts = async () => {
         await this.compileTs();
-        const target = path.resolve(cwd, path.join(opts.buildFolder, opts.warmupDir));
+        const target = path.resolve(this.serverless.config.servicePath, opts.warmupDir);
         if (!fs.existsSync(target)) {
-          fs.symlinkSync(path.resolve(cwd, opts.warmupDir), target);
+          fs.symlinkSync(path.resolve(this.originalServicePath, opts.warmupDir), target);
         }
       };
       afterArtifacts = async () => {
@@ -39,7 +37,7 @@ modify(
         // Restore service path
         this.serverless.config.servicePath = this.originalServicePath;
       };
-      finalize = async () => fs.removeSync(path.join(this.originalServicePath, opts.buildFolder));
+      finalize = async () => fs.removeSync(path.resolve(this.originalServicePath, opts.buildFolder));
     }
 );
 
