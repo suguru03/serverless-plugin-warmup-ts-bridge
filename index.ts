@@ -28,9 +28,9 @@ modify(
       beforeArtifacts = async () => {
         await this.compileTs();
         const target = path.resolve(this.serverless.config.servicePath, opts.warmupDir);
-        if (!fs.existsSync(target)) {
-          fs.symlinkSync(path.resolve(this.originalServicePath, opts.warmupDir), target);
-        }
+        const warmUpDirectory = path.resolve(this.originalServicePath, opts.warmupDir);
+
+        if (fs.existsSync(warmUpDirectory) && !fs.existsSync(target)) fs.symlinkSync(warmUpDirectory, target);
       };
       afterArtifacts = async () => {
         await this.moveArtifacts();
